@@ -1,0 +1,13 @@
+
+.hero-section {
+    background-color: lightgray;
+    padding: 20px;
+  }
+  .hero-section img {
+    max-width: 100%;
+  }
+  .overlay-text {
+    color: red;
+    font-size: 24px;
+  }
+  
