@@ -1,13 +1,16 @@
 import Header from "./Header.jsx"
 import Footer from "./Footer.jsx"
+import Body from "./home/home.jsx";
+
 
 function App() {
   return(
     <>
-    <Header></Header>
-    <div><home></home></div>
-    
-    <Footer></Footer>
+       <BrowserRouter>
+              <Routes>
+                      <Route path='/'  element={<Body/>}> </Route>
+              </Routes>
+       </BrowserRouter>
   
     </>
   ) ;
