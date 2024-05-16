@@ -52,7 +52,7 @@ function Register() {
               <label htmlFor="remember-me">Remember me</label>
             </div>
             <button type="submit" className="register-btn">
-              Register Account
+             <a href="./Profile"> Register Account</a>
             </button>
             <p>
               Do not have an account? <a href="./Login">Login here</a>
