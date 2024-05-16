@@ -1,4 +1,4 @@
-import "./Style.css";
+import "./Home.css";
 function Home(){
   
   return (
@@ -8,7 +8,7 @@ function Home(){
       <h1>Mindfulness &amp; Healthy life</h1>
       <p>Connect to your inner life</p>
       </div>
-      <button className="join-button">Join Our Classes</button>
+      <button className="join-button"><a href="./login">Join Our Classes</a></button>
     </div>
   )
 }

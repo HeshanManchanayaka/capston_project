@@ -1,6 +1,6 @@
 
 .hero-section {
-  background-image: url('../../public/Background.jpg');
+  background-image: url('../../public/home/Background.jpg');
   background-size: cover;
   background-position: center;
   height:100vh;
@@ -19,7 +19,6 @@
 
 .join-button {
   background-color: rgba(247, 147, 147, 0.8); 
-  color: white;
   padding: 1rem 2rem;
   font-size: 1.2rem;
   font-weight: bold;
@@ -27,4 +26,8 @@
   border: none;
   border-radius: 5rem;
   cursor: pointer;
+}
+.join-button a{
+  text-decoration: none;
+  color: white;
 }
