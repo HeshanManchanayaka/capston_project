@@ -1,6 +1,7 @@
-import Header from "./Header.jsx"
-import Footer from "./Footer.jsx"
-import Body from "./home/home.jsx";
+import Home from "./home/home.jsx";
+import Login from "./Login/login.jsx";
+import Register from "./Register/register.jsx";
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 
 function App() {
@@ -8,7 +9,9 @@ function App() {
     <>
        <BrowserRouter>
               <Routes>
-                      <Route path='/'  element={<Body/>}> </Route>
+                      <Route path='/'  element={<Home/>}> </Route>
+                      <Route path='/login'  element={<Login/>}> </Route>
+                      <Route path='/Register'  element={<Register/>}> </Route>
               </Routes>
        </BrowserRouter>
   

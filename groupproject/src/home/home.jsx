@@ -1,14 +1,16 @@
-import "./Style.css";
-function Body(){
+import "./Home.css";
+function Home(){
+  
   return (
-    <div className="hero-section">
-      <img src="D:\capston git\capston_project\React\photos\background.jpg" alt="Meditation" />
-      <div className="overlay-text">
-        <h1>Mindfulness & Healthy Life</h1>
-        <p>Discover inner peace and wellness.</p>
+  
+    <div className="hero-section" >
+      <div className="hero-text">
+      <h1>Mindfulness &amp; Healthy life</h1>
+      <p>Connect to your inner life</p>
       </div>
+      <button className="join-button"><a href="./login">Join Our Classes</a></button>
     </div>
   )
 }
 
-export default Body;
+export default Home;
