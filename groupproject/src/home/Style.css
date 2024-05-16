@@ -1,13 +1,30 @@
 
 .hero-section {
-    background-color: lightgray;
-    padding: 20px;
-  }
-  .hero-section img {
-    max-width: 100%;
-  }
-  .overlay-text {
-    color: red;
-    font-size: 24px;
-  }
-  
+  background-image: url('../../public/Background.jpg');
+  background-size: cover;
+  background-position: center;
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.hero-text {
+  text-align: center;
+  font-size: 2rem;
+  font-family: 'Original surfer', serif;
+}
+
+.join-button {
+  background-color: rgba(247, 147, 147, 0.8); 
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: 'Libre Baskerville', serif;
+  border: none;
+  border-radius: 5rem;
+  cursor: pointer;
+}

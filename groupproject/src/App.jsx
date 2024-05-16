@@ -1,6 +1,5 @@
-import Header from "./Header.jsx"
-import Footer from "./Footer.jsx"
-import Body from "./home/home.jsx";
+import Home from "./home/home.jsx";
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 
 function App() {
@@ -8,7 +7,7 @@ function App() {
     <>
        <BrowserRouter>
               <Routes>
-                      <Route path='/'  element={<Body/>}> </Route>
+                      <Route path='/'  element={<Home/>}> </Route>
               </Routes>
        </BrowserRouter>
   
