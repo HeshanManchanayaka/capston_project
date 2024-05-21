@@ -2,14 +2,14 @@ import "./login.css";
 
 function Login() {
   return (
-    <div className="container">
+    <div className="container" >
       <div className="image-section">
         <img
-          src=""
+          src="../../public/user/log.png"
           alt="Woman practicing yoga"
         />
       </div>
-      <div className="form-section">
+      <div className="form-section" >
         <div className="form-container">
           <div className="back-button">
             <a href="./">&lt; Back</a>

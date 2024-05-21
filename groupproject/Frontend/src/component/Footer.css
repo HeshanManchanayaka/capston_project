@@ -40,7 +40,7 @@
     list-style: none; /* Remove default list styling */
     padding: 0; /* Remove default padding */
     margin: 0; /* Remove default margin */
-    color: black;
+    color: rgb(8, 5, 5);
   }
   
   .footer-nav ul li {
@@ -49,7 +49,7 @@
   }
   
   .footer-nav ul li a {
-    color: rgb(15, 14, 14); /* Link color */
+    color:#0c0b0b;
     text-decoration: none; /* No underline on links */
   }
   
@@ -87,5 +87,29 @@
       display: block; /* Stack the links vertically on small screens */
       margin-bottom: 10px; /* Space below each link */
     }
+  }
+
+  .scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .scroll-to-top button {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .scroll-to-top button:hover {
+    background-color: #6f5a5a;
   }
   

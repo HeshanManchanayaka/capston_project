@@ -9,7 +9,9 @@
   max-width: 400px; /* Adjust the max-width according to your design */
   margin-bottom: 20px;
 }
-
+.image-section img{
+  max-width: 100%;
+}
 .form-section {
   width: 100%;
   max-width: 400px; /* Adjust the max-width according to your design */

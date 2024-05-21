@@ -1,9 +1,16 @@
 
-import "./Footer.css"
+import "./Footer.css";
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { AiOutlineArrowUp } from 'react-icons/ai';
 
-function Footer () {
+function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -11,16 +18,7 @@ function Footer () {
         <p>Invest in your health.</p>
         <a href="tel:+94777249227" className="footer-phone">+94777249227</a>
         <button className="join-now-btn">Join Now</button>
-        <nav className="footer-nav">
-          <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#schedules">Schedules</a></li>
-            <li><a href="#membership">Membership</a></li>
-            <li><a href="#teacher-training">Teacher Training</a></li>
-            <li><a href="#resources">Resources</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
+
         <br />
         <div className="footer-social-media">
           <a href="https://www.facebook.com" aria-label="Facebook"><FaFacebookF /></a>
@@ -28,7 +26,9 @@ function Footer () {
           <a href="https://www.instagram.com" aria-label="Instagram"><FaInstagram /></a>
         </div>
         <div className="scroll-to-top">
-          <button aria-label="Scroll to top"><AiOutlineArrowUp /></button>
+          <button aria-label="Scroll to top" onClick={scrollToTop}>
+            <AiOutlineArrowUp />
+          </button>
         </div>
       </div>
       <div className="footer-terms">

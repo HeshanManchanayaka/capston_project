@@ -6,16 +6,17 @@ function Register() {
 
   const handleNameChange = (event) => {
     const inputValue = event.target.value;
-    // Regular expression to allow only letters
-    const onlyLetters = /^[A-Za-z]+$/;
-    if (onlyLetters.test(inputValue) || inputValue === "") {
+    // Regular expression to allow letters and spaces only
+    const validName = /^[A-Za-z\s]+$/;
+    if (validName.test(inputValue) || inputValue === "") {
       setName(inputValue);
     }
   };
+
   return (
     <div className="container">
       <div className="image-section">
-        <img src="" alt="Woman practicing yoga" />
+        <img src="../../public/home/back.jpg" alt="Woman practicing yoga" />
       </div>
       <div className="form-section">
         <div className="form-container">
@@ -23,7 +24,9 @@ function Register() {
             <a href="./">&lt; Back</a>
           </div>
           <h2>Create new Account</h2>
-          <p>Already Registered? Login</p>
+          <p>
+            Already Registered?<a href="/Login">Login</a>{" "}
+          </p>
           <form>
             <div className="form-group">
               <label htmlFor="name">Name</label>
@@ -33,11 +36,13 @@ function Register() {
                 placeholder="Your Name"
                 value={name}
                 onChange={handleNameChange}
+                required
               />
+
             </div>
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
-              <input type="email" id="email" placeholder="Email Address" />
+              <input type="email" id="email" placeholder="Email Address"/>
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
@@ -52,11 +57,8 @@ function Register() {
               <label htmlFor="remember-me">Remember me</label>
             </div>
             <button type="submit" className="register-btn">
-             <a href="./Profile"> Register Account</a>
+              <a href="./Profile"> Register Account</a>
             </button>
-            <p>
-              Do not have an account? <a href="./Login">Login here</a>
-            </p>
           </form>
         </div>
       </div>
