@@ -1,0 +1,115 @@
+/* Footer Styles */
+.footer {
+    background-color: #f9f8f8; /* Dark background for the footer */
+    color: rgb(0, 0, 0); /* White text color */
+    padding: 20px 0; /* Padding around the footer */
+    text-align: center; /* Center align the text */
+  }
+  
+  .footer-content {
+    max-width: 1200px; /* Maximum width of the footer content */
+    margin: 0 auto; /* Center the footer content */
+    padding: 0 15px; /* Padding inside the footer content */
+  }
+  
+  .footer h1 {
+    margin-bottom: 10px; 
+    color: #09ba00;/* Space below the logo/heading */
+  }
+  
+  .footer p {
+    margin-bottom: 20px; /* Space below the tagline */
+  }
+  
+  .footer-phone {
+    display: block; /* Make the phone number a block element */
+    margin-bottom: 20px; /* Space below the phone number */
+  }
+  
+  .join-now-btn {
+    background-color: #008cba; /* Button background color */
+    color: rgb(27, 18, 18); /* Button text color */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding inside the button */
+    text-transform: uppercase; /* Uppercase button text */
+    margin-bottom: 20px; /* Space below the button */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .footer-nav ul {
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    color: rgb(8, 5, 5);
+  }
+  
+  .footer-nav ul li {
+    display: inline-block; /* Display links inline */
+    margin-right: 15px; /* Space between the links */
+  }
+  
+  .footer-nav ul li a {
+    color:#0c0b0b;
+    text-decoration: none; /* No underline on links */
+  }
+  
+  .footer-social-media {
+    margin-bottom: 20px; /* Space below the social media icons */
+  }
+  
+  .footer-social-media a {
+    color: rgb(9, 9, 9); /* Social media icon color */
+    margin-right: 40px; /* Space between social media icons */
+  }
+  .scroll-to-top {
+    position: fixed; /* Fixed position */
+    bottom: 20px; /* Distance from the bottom */
+    right: 20px; /* Distance from the right */
+    z-index: 999; /* Ensure it's above other elements */
+  }
+  
+  .scroll-to-top button {
+    background: round; /* No background */
+    border: none; /* No border */
+    color: rgb(17, 15, 15); /* Icon color */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  
+  .footer-terms a {
+    color: rgb(20, 19, 19); /* Terms link color */
+    text-decoration: none; /* No underline on terms link */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .footer-nav ul li {
+      display: block; /* Stack the links vertically on small screens */
+      margin-bottom: 10px; /* Space below each link */
+    }
+  }
+
+  .scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .scroll-to-top button {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .scroll-to-top button:hover {
+    background-color: #6f5a5a;
+  }
+  

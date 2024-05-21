@@ -1,16 +1,50 @@
 import "./Home.css";
-function Home(){
-  
+import Footer from "../component/Footer";
+
+function Home() {
   return (
-  
-    <div className="hero-section" >
-      <div className="hero-text">
-      <h1>Mindfulness &amp; Healthy life</h1>
-      <p>Connect to your inner life</p>
+    <div>
+      <div className="hero-section">
+        <div className="hero-text" data-aos="fade-down">
+          <h1>Mindfulness &amp; Healthy life</h1>
+          <p>Connect to your inner flow..</p>
+        </div>
+        <button className="join-button" data-aos="fade-up">
+          <a href="./login">Join Our Classes</a>
+        </button>
       </div>
-      <button className="join-button"><a href="./login">Join Our Classes</a></button>
+
+      <div className="container">
+        <div className="left-side" data-aos="fade-up">
+          <img
+            src="../../public/home/back.jpg"
+            alt="Example"
+            className="responsive-image"
+          />
+        </div>
+        <div className="right-side"  data-aos="fade-up">
+          <p>
+            This is an example paragraph. Replace this text with any content you
+            like. It will stay on the right side of the image on larger screens
+            and stack below the image on smaller screens.
+          </p>
+        </div>
+      </div>
+
+      <div className="side-by-side">
+        <div className="side-section left-section" data-aos="fade-down">
+          <h2><a href="">Mindfulness</a></h2>
+          <p>Details about the left section.</p>
+        </div>
+        <div className="side-section right-section" data-aos="fade-down">
+        <h2><a href="">Mindfulness</a></h2>
+          <p>Details about the right section.</p>
+        </div>
+      </div>
+
+      <Footer />
     </div>
-  )
+  );
 }
 
 export default Home;
