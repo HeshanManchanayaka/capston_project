@@ -5,7 +5,7 @@ function Login() {
     <div className="container" >
       <div className="image-section">
         <img
-          src="../../public/user/log.png"
+          src="../assets/user/log.png"
           alt="Woman practicing yoga"
         />
       </div>
@@ -27,10 +27,6 @@ function Login() {
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input type="password" id="password" placeholder="Password" />
-            </div>
-            <div className="form-group">
-              <input type="checkbox" id="remember-me" />
-              <label >Remember me</label>
             </div>
             <button type="button" className="register-btn">
               Login Account

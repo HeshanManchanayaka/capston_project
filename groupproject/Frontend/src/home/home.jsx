@@ -14,10 +14,10 @@ function Home() {
         </button>
       </div>
 
-      <div className="container">
+      <div className="container1">
         <div className="left-side" data-aos="fade-up">
           <img
-            src="../../public/home/back.jpg"
+            src="../assets/user/log1.png"
             alt="Example"
             className="responsive-image"
           />
@@ -30,6 +30,8 @@ function Home() {
           </p>
         </div>
       </div>
+
+
 
       <div className="side-by-side">
         <div className="side-section left-section" data-aos="fade-down">

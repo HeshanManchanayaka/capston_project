@@ -52,10 +52,6 @@ function Register() {
               <label htmlFor="dof">Date Of Birth</label>
               <input type="date" id="dof" />
             </div>
-            <div className="form-group">
-              <input type="checkbox" id="remember-me" />
-              <label htmlFor="remember-me">Remember me</label>
-            </div>
             <button type="submit" className="register-btn">
               <a href="./Profile"> Register Account</a>
             </button>
