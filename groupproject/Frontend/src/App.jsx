@@ -1,6 +1,7 @@
 import Home from "./home/home.jsx";
 import Login from "./Login/login.jsx";
 import Register from "./Register/register.jsx"
+import UserProfile from "./home/profile.jsx"
 
 
 
@@ -22,6 +23,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/UserProfile' element={<UserProfile />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
         </Routes>
