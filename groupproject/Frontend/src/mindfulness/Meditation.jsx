@@ -43,7 +43,7 @@ const CardsSection = styled(Section)`
 `;
 
 const Card = styled.div`
-  width: 200px;
+  width: 201px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
