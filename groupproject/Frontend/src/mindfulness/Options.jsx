@@ -1,25 +1,29 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
-
 
 const ZenFitLifeMethods = () => {
   const methods = [
     {
       title: 'Music therapy',
-      image: '../src/assets/1028.jpg', 
+      image: '../src/assets/1028.jpg',
+      path: '/music',
     },
     {
       title: 'Mind Relaxing with YOGA',
-      image: '../src/assets/arms-beautiful-beauty-1882004.jpg', 
+      image: '../src/assets/arms-beautiful-beauty-1882004.jpg',
+      path: '/question',
     },
     {
       title: 'Meditation',
       image: '../src/assets/meditation-8505367_1280.jpg',
+      path: '/meditation',
     },
     {
       title: 'Counseling',
       image: '../src/assets/shutterstock_1125091478.jpg',
+      path: '/counceling',
     },
   ];
 
@@ -33,7 +37,7 @@ const ZenFitLifeMethods = () => {
               className="cardImage"
               style={{ ...styles.cardImage, backgroundImage: `url(${method.image})` }}
             ></div>
-            <button className="button" style={styles.button}>{method.title}</button>
+            <Link to={method.path} className="button" style={styles.button}>{method.title}</Link>
           </div>
         ))}
       </div>
@@ -89,6 +93,7 @@ const styles = {
     cursor: 'pointer',
     fontSize: '16px',
     transition: 'background-color 0.3s ease',
+    textDecoration: 'none',
   },
 };
 
@@ -105,11 +110,4 @@ const appStyles = `
   }
 `;
 
-const App = () => (
-  <div>
-    <style>{appStyles}</style>
-    <ZenFitLifeMethods />
-  </div>
-);
-
-export default App;
+export default ZenFitLifeMethods;

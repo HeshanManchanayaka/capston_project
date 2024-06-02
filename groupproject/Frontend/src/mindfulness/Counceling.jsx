@@ -24,15 +24,13 @@ const CardsSection = styled(Section)`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  
 `;
 
 const Card = styled.div`
   width: 300px;
-  height: 600px;
+  height: 500px;
   background: rgba(80, 223, 113, 0.93);
   border-radius: 10px;
-  padding:20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   text-align: center;
@@ -113,7 +111,7 @@ function App() {
 
   return (
     <AppContainer>
-      <Header>MEDITATION</Header>
+      <Header>COUNCELING</Header>
       <CardsSection>
         <PersonCard
           image="../src/assets/person.png"
