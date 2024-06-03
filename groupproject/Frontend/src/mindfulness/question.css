@@ -1,0 +1,161 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #d8f2d2;
+}
+
+.nav-link {
+    color: #54e262;
+}
+
+.nav-link:hover {
+    color: #0c381b;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #2b882b;
+}
+
+.btn-primary {
+    background-color: #a6e3a1;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #94c890;
+}
+
+.navbar-toggler {
+    border-color: rgba(80, 223, 113, 0.93);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.main-section {
+    background-image: url('../src/assets/bc.jpg'); /* Replace 'a.png' with your actual background image */
+    background-size: cover;
+    background-position: center;
+    padding: 50px 20px;
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    background-color: rgba(231, 245, 235, 0.8);
+    padding: 50px;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;
+    border-color: #000000c5;
+    border-style: inset;
+    margin-left: auto;
+}
+
+.questions-section {
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+    background-color: #a4dfa793;
+}
+
+.question label {
+    display: block;
+    margin-bottom: 5px;
+    background-color: #7cdb81aa;
+    border-radius: 4px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    max-width: 200px;
+}
+
+.buttons input[type="radio"] {
+    display: none;
+}
+
+.buttons label {
+    background-color: #acf7ba;
+    border: 1px solid #070e06;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.buttons input[type="radio"]:checked + label {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #72ab75c5;
+}
+
+.benefits-section {
+    background-color: #86e48e9d;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.benefits-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.benefits-header h2 {
+    font-family: 'Georgia, serif';
+    font-size: 28px;
+    color: #051b09;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    /* border-bottom: 2px solid #2c3e50; 
+    padding-bottom: 5px; */
+    
+}
+
+.benefit-item {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.benefit-item:hover {
+    transform: translateY(-10px);
+}
+
+.benefit-item img {
+    border-radius: 10px;
+}
+
+.benefit-item p {
+    margin-top: 10px;
+    font-family: monospace;
+    font-weight: bold;
+}
