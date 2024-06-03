@@ -1,18 +1,11 @@
 import Home from "./home/home.jsx";
 import Login from "./Login/login.jsx";
 import Register from "./Register/register.jsx"
-<<<<<<< HEAD
-import UserProfile from "./home/profile.jsx"
-
-
-=======
-import Questionn from "./mindfulness/Questionn.jsx"
 import Plan from "./mindfulness/Plan.jsx"
 import Options from "./mindfulness/Options.jsx"
 import Music from "./mindfulness/Music.jsx"
 import Meditation from "./mindfulness/Meditation.jsx"
 import Counceling from "./mindfulness/Counceling.jsx"
->>>>>>> 1765139da614fe135020df40e79b7be451b12b2d
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AOS from 'aos';
