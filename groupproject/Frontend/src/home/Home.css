@@ -8,7 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: rgb(255, 252, 252);
   padding: 20px;
   box-sizing: border-box;
 }
@@ -101,12 +101,9 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-
   color: rgb(14, 13, 13);
-  padding: 20px;
   box-sizing: border-box;
-  margin: 20px 0;
+  margin: 2px 10px;
 }
 
 /* Responsive Styles (Override for smaller screens) */
@@ -116,6 +113,7 @@
   }
 
   .side-section {
+
     height: auto;
     margin-right: 0;
     margin-bottom: 20px;
@@ -130,7 +128,8 @@
 /* Side Section Styles */
 .side-section {
   flex: 1;
-  padding: 10px;  box-sizing: border-box;
+  padding: 100px; 
+  box-sizing: border-box;
 }
 
 .side-section a {
@@ -145,7 +144,7 @@
 }
 
 .right-section {
-  background-color: #e0e0e09f;
+  background-color: #f1c8c89f;
 }
 
 .side-by-side h2 {
