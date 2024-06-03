@@ -1,8 +1,12 @@
 import Home from "./home/home.jsx";
 import Login from "./Login/login.jsx";
 import Register from "./Register/register.jsx"
-
-
+import Questionn from "./mindfulness/Questionn.jsx"
+import Plan from "./mindfulness/Plan.jsx"
+import Options from "./mindfulness/Options.jsx"
+import Music from "./mindfulness/Music.jsx"
+import Meditation from "./mindfulness/Meditation.jsx"
+import Counceling from "./mindfulness/Counceling.jsx"
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AOS from 'aos';
@@ -24,6 +28,14 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/question' element={<Questionn />} />
+          <Route path='/plan' element={<Plan />} />
+          <Route path='/options' element={<Options />} />
+          <Route path='/music' element={<Music />} />
+          <Route path='/meditation' element={<Meditation />} />
+          <Route path='/counceling' element={<Counceling />}/>
+
+
         </Routes>
       </BrowserRouter>
     </>
