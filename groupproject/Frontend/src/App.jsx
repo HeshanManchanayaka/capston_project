@@ -7,6 +7,7 @@ import Options from "./mindfulness/Options.jsx"
 import Music from "./mindfulness/Music.jsx"
 import Meditation from "./mindfulness/Meditation.jsx"
 import Counceling from "./mindfulness/Counceling.jsx"
+import Admin from "./mindfulness/Admin.jsx"
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AOS from 'aos';
@@ -34,6 +35,7 @@ function App() {
           <Route path='/music' element={<Music />} />
           <Route path='/meditation' element={<Meditation />} />
           <Route path='/counceling' element={<Counceling />}/>
+          <Route path='/admin' element={<Admin />}/>
 
 
         </Routes>
