@@ -39,7 +39,7 @@ function Home() {
           <p>Details about the left section.</p>
         </div>
         <div className="side-section right-section" data-aos="fade-down">
-        <h2><a href="">Mindfulness</a></h2>
+        <h2><a href="./options">Mindfulness</a></h2>
           <p>Details about the right section.</p>
         </div>
       </div>

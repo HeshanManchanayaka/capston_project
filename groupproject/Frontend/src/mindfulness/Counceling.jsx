@@ -92,15 +92,21 @@ const PersonCard = ({ image, name, contact, about }) => (
 const BenefitsSection = () => (
   <BenefitsSectionContainer>
     <h2>Benefits Of Meditation</h2>
-    <BenefitItem data-aos="fade-up">Reduces stress and anxiety</BenefitItem>
-    <BenefitItem data-aos="fade-up">Strengthens the immune system</BenefitItem>
-    <BenefitItem data-aos="fade-up">Enhances problem-solving abilities</BenefitItem>
-    <BenefitItem data-aos="fade-up">Improves focus and concentration</BenefitItem>
-    <BenefitItem data-aos="fade-up">Improved sleep quality</BenefitItem>
-    <BenefitItem data-aos="fade-up">Improves quality of life</BenefitItem>
-    <BenefitItem data-aos="fade-up">Improves heart health</BenefitItem>
+    <BenefitItem data-aos="fade-up">Personal empowerment</BenefitItem>
+    <BenefitItem data-aos="fade-up">Hope</BenefitItem>
+    <BenefitItem data-aos="fade-up">The overcoming of demoralization caused by social stigma</BenefitItem>
+    <BenefitItem data-aos="fade-up">Acceptance of life</BenefitItem>
+    <BenefitItem data-aos="fade-up">Personal insight</BenefitItem>
+    <BenefitItem data-aos="fade-up">Life skills</BenefitItem>
+    <BenefitItem data-aos="fade-up">Wellness</BenefitItem>
+    <BenefitItem data-aos="fade-up">Prevention of future mental health distress</BenefitItem>
   </BenefitsSectionContainer>
 );
+
+
+
+
+
 
 function App() {
   useEffect(() => {
