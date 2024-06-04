@@ -1,6 +1,6 @@
 /* Hero Section Styles */
 .hero-section {
-  background-image: url('../../public/home/Background.jpg');
+  background-image: url('../assets/home/Background.jpg');
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -8,7 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: rgb(255, 252, 252);
   padding: 20px;
   box-sizing: border-box;
 }
@@ -61,13 +61,13 @@
 }
 
 /* Container Styles */
-.container {
+.container1 {
   display: flex;
   flex-direction: row;
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background-image: url('../../public/home/back3.jpg');
+ 
 }
 
 .left-side, .right-side {
@@ -82,32 +82,54 @@
 
 /* Responsive styles for Container */
 @media (max-width: 768px) {
-  .container {
+  .container1 {
     flex-direction: column;
   }
 }
 
-/* Side-by-Side Section Styles */
+/* Side-by-Side Section Styles (Image and Responsive) */
+
 .side-by-side {
-  background-image: url('../../public/home/back2.jpg');
+  /* Background for desktop and larger screens */
+  background-image: url('../assets/home/Background.jpg');
   background-size: cover;
   background-position: center;
-  min-height: 100vh;
+  /* Improved min-height for better image display */
+  min-height: calc(100vh - 40px);  /* Adjust padding value if needed */
+
+  /* Flexbox layout for both image and responsive views */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
   color: rgb(14, 13, 13);
-  padding: 20px;
   box-sizing: border-box;
-  margin: 20px 0;
+  margin: 2px 10px;
 }
 
+/* Responsive Styles (Override for smaller screens) */
+@media (max-width: 768px) {
+  .side-by-side {
+    flex-direction: column;
+  }
+
+  .side-section {
+
+    height: auto;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  /* Remove extra bottom margin for last child on smaller screens */
+  .side-section:nth-last-child(1) {
+    margin-bottom: 0;
+  }
+}
+
+/* Side Section Styles */
 .side-section {
   flex: 1;
-  padding: 10px;
+  padding: 100px; 
   box-sizing: border-box;
-  height: calc(50vh - 20px);
 }
 
 .side-section a {
@@ -116,37 +138,15 @@
   font-weight: bold;
 }
 
-/* Optional: add some spacing between the sections */
-.side-section:not(:last-child) {
-  margin-right: 50px;
-}
-
 /* Additional styles for clarity */
 .left-section {
-  background-color: #b89d9d7f;
+  background-image: url("../assets/home/Young-man-practicing-yoga-exercises-for-mental-and-body-health-1536x1024.webp");
 }
 
 .right-section {
-  background-color: #e0e0e09f;
+  background-color: #f1c8c89f;
 }
 
 .side-by-side h2 {
   text-align: center;
-}
-
-/* Responsive styles for Side-by-Side Section */
-@media (max-width: 768px) {
-  .side-by-side {
-    flex-direction: column;
-  }
-
-  .side-section {
-    height: auto;
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-
-  .side-section:not(:last-child) {
-    margin-bottom: 20px;
-  }
 }

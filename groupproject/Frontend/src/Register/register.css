@@ -9,9 +9,11 @@
   max-width: 400px; /* Adjust the max-width according to your design */
   margin-bottom: 20px;
 }
-.image-section img{
+
+.image-section img {
   max-width: 100%;
 }
+
 .form-section {
   width: 100%;
   max-width: 400px; /* Adjust the max-width according to your design */
@@ -30,6 +32,12 @@
 
   .image-section {
     margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .image-section {
+    display: none;
   }
 }
 
@@ -87,11 +95,11 @@ input[type='password'] {
   cursor: pointer;
   width: 100%;
 }
+
 .register-btn a {
   color: #fdfffd;
   text-decoration: none;
 }
-
 
 .register-btn:hover {
   background-color: #45a049;

@@ -1,7 +1,6 @@
 import Home from "./home/home.jsx";
 import Login from "./Login/login.jsx";
 import Register from "./Register/register.jsx"
-import Questionn from "./mindfulness/Questionn.jsx"
 import Plan from "./mindfulness/Plan.jsx"
 import Options from "./mindfulness/Options.jsx"
 import Music from "./mindfulness/Music.jsx"
@@ -27,9 +26,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
+          {/* <Route path='/UserProfile' element={<UserProfile />} /> */}
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/question' element={<Questionn />} />
+          {/* <Route path='/question' element={<Questionn />} /> */}
           <Route path='/plan' element={<Plan />} />
           <Route path='/options' element={<Options />} />
           <Route path='/music' element={<Music />} />
