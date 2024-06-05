@@ -1,41 +1,37 @@
 
-import "./Footer.css";
-import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
-import { AiOutlineArrowUp } from 'react-icons/ai';
+import './Footer.css';
 
-function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
-  return (
-    <footer className="footer">
-      <div className="footer-content">
-        <h1>ZenFit Life</h1>
-        <p>Invest in your health.</p>
-        <a href="tel:+94777249227" className="footer-phone">+94777249227</a>
-        <button className="join-now-btn">Join Now</button>
-
-        <br />
-        <div className="footer-social-media">
-          <a href="https://www.facebook.com" aria-label="Facebook"><FaFacebookF /></a>
-          <a href="https://www.twitter.com" aria-label="Twitter"><FaTwitter /></a>
-          <a href="https://www.instagram.com" aria-label="Instagram"><FaInstagram /></a>
+const Footer = () => {
+    return (
+        <div className="footer">
+            <div className="container">
+                <div className="row text-center">
+                    <div className="col-lg-12 col-sm-12 col-xs-12">
+                        <div className="footer_menu">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Service</a></li>
+                                <li><a href="#">Works</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div className="footer_copyright">
+                            <p>© 2021 Sai. All Rights Reserved.</p>
+                        </div>
+                        <div className="footer_profile">
+                            <ul>
+                                <li><a href="#"><i className="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i className="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i className="fa fa-instagram"></i></a></li>
+                                <li><a href="#"><i className="fa fa-pinterest"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div className="scroll-to-top">
-          <button aria-label="Scroll to top" onClick={scrollToTop}>
-            <AiOutlineArrowUp />
-          </button>
-        </div>
-      </div>
-      <div className="footer-terms">
-        <a href="#terms">Terms & Conditions</a>
-      </div>
-    </footer>
-  );
+    );
 }
 
 export default Footer;

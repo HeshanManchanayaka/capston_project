@@ -1,7 +1,7 @@
 import "./login.css";
 
 function Login() {
-  
+  <a href="#" className="auth-button">Login</a>
   return (
     <div className="container" >
       <div className="image-section">
