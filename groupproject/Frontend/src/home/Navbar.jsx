@@ -1,58 +1,34 @@
-
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+// src/NavBar.js
+import  { useState, useEffect } from 'react';
 import './Navbar.css';
 
-const NavBar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState(null);
+function NavBar() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setIsLoggedIn(true);
-      setToken(storedToken);
-    }
-  }, []);
+    useEffect(() => {
+        // Fetch the login status from the backend
+        fetch('http://localhost:5000/api/profile/status')
+            .then(response => response.json())
+            .then(data => {
+                if (data.isLoggedIn) {
+                    setIsLoggedIn(true);
+                }
+            });
+    }, []);
 
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/login', {
-        username: 'user',
-        password: 'password',
-      });
-
-      const { token } = response.data;
-      localStorage.setItem('token', token);
-      setToken(token);
-      setIsLoggedIn(true);
-    } catch (error) {
-      console.error('Login failed', error);
-    }
-  };
-
-  return (
-    <nav className="navbar">
-      <div className="navbar-logo">
-        <img src="logo.png" alt="Logo" />
-      </div>
-      <div className="navbar-buttons">
-        {isLoggedIn ? (
-          <img src="profile-icon.png" alt="Profile" className="profile-icon" />
-        ) : (
-          <button className="login-button" onClick={handleLogin}>
-            <Link to="./login">Login</Link>
-          </button>
-        )}
-        {!isLoggedIn && (
-          <button className="register-button">
-            <Link to="./register">Register</Link>
-          </button>
-        )}
-      </div>
-    </nav>
-  );
-};
+    return (
+        <nav className="navbar">
+            <div className="logo">
+                <img src="../../src/assets/home/logo.png" alt="Logo" />
+            </div>
+            <h3>ZEN FIT YOGA</h3>
+            {isLoggedIn && (
+                <div className="profile">
+                    <img src="/profile.png" alt="Profile" />
+                </div>
+            )}
+        </nav>
+    );
+}
 
 export default NavBar;

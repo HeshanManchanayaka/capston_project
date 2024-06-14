@@ -1,15 +1,13 @@
 const mysql = require('mysql');
 const bcrypt = require('bcryptjs');
 
-// Create a MySQL connection pool
 const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
-  password: '',
+  password: '', 
   database: 'capstone_project'
 });
 
-// Connect to the database (optional: if you want to test connection on startup)
 pool.getConnection((err, connection) => {
   if (err) {
     console.error('Error connecting to database:', err.message);
@@ -19,10 +17,7 @@ pool.getConnection((err, connection) => {
   console.log('Database connected successfully');
 });
 
-// Add a new user to the database
-const addUser = async (name, email, password, date_of_birth) => {
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const user = { name, email, password: hashedPassword, date_of_birth };
+const addUser = (user) => {
   return new Promise((resolve, reject) => {
     pool.query('INSERT INTO user SET ?', user, (err, results) => {
       if (err) {
@@ -34,7 +29,30 @@ const addUser = async (name, email, password, date_of_birth) => {
   });
 };
 
-// Find a user by their email
+const updateUser = (email, user) => {
+  return new Promise((resolve, reject) => {
+    pool.query('UPDATE user SET ? WHERE email = ?', [user, email], (err, results) => {
+      if (err) {
+        console.error('Error updating user:', err);
+        return reject(err);
+      }
+      resolve(results);
+    });
+  });
+};
+
+const deleteUser = (email) => {
+  return new Promise((resolve, reject) => {
+    pool.query('DELETE FROM user WHERE email = ?', [email], (err, results) => {
+      if (err) {
+        console.error('Error deleting user:', err);
+        return reject(err);
+      }
+      resolve(results);
+    });
+  });
+};
+
 const findUserByEmail = (email) => {
   return new Promise((resolve, reject) => {
     pool.query('SELECT * FROM user WHERE email = ?', [email], (err, results) => {
@@ -43,7 +61,7 @@ const findUserByEmail = (email) => {
         return reject(err);
       }
       if (results.length === 0) {
-        resolve(null); // No user found
+        resolve(null); 
       } else {
         resolve(results[0]);
       }
@@ -51,7 +69,6 @@ const findUserByEmail = (email) => {
   });
 };
 
-// Find a user by their ID
 const findUserById = (id) => {
   return new Promise((resolve, reject) => {
     pool.query('SELECT * FROM user WHERE id = ?', [id], (err, results) => {
@@ -60,10 +77,22 @@ const findUserById = (id) => {
         return reject(err);
       }
       if (results.length === 0) {
-        resolve(null); // No user found
+        resolve(null); 
       } else {
         resolve(results[0]);
       }
+    });
+  });
+};
+
+const getAllUsers = () => {
+  return new Promise((resolve, reject) => {
+    pool.query('SELECT * FROM user', (err, results) => {
+      if (err) {
+        console.error('Error fetching users:', err);
+        return reject(err);
+      }
+      resolve(results);
     });
   });
 };
@@ -72,4 +101,7 @@ module.exports = {
   addUser,
   findUserByEmail,
   findUserById,
+  updateUser,
+  deleteUser,
+  getAllUsers,
 };

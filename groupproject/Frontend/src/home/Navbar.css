@@ -1,38 +1,32 @@
+
+
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
-    color: #fff;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #afa275;
   
-  .navbar-logo img {
-    height: 40px;
-    margin-left: 10px;
-  }
-  
-  .navbar-buttons {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .login-button, .register-button {
-    background-color: #00ff44;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-right: 10px;
-  }
-  
-  .login-button:hover, .register-button:hover {
-    background-color: #b30300;
-  }
-  
+}
+
+.logo img, .profile img {
+  width: 50px;
+  height: 50px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+.navbar h3 {
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  text-align: center;
+  color: azure;
+  position: relative;
+  margin-right: 50px;
+}
+
+.logo img {
+  margin-left: 20px;
+}
+
+.profile img {
+  margin-right: 20px;
+}

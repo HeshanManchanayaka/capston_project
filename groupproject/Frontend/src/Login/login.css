@@ -1,11 +1,9 @@
-/* Container for both sections */
+
 .container {
     display: flex;
     height: 100vh;
-    flex-direction: row; /* Default layout for larger screens */
+    flex-direction: row; 
 }
-
-/* Image section */
 .image-section {
     flex: 1;
     display: flex;
@@ -17,7 +15,6 @@
     max-width: 100%;
 }
 
-/* Form section */
 .form-section {
     flex: 1;
     display: flex;
@@ -26,7 +23,6 @@
     position: relative;
 }
 
-/* Back button */
 .back-button {
     position: relative;
     top: 10px;
@@ -38,7 +34,6 @@
     text-decoration: none;
 }
 
-/* Form container */
 .form-container {
     max-width: fit-content;
     max-height: fit-content;
@@ -48,19 +43,16 @@
     height: 100%;
 }
 
-/* Form group */
 .form-group {
     margin-bottom: 20px;
 }
 
-/* Label styles */
 label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-/* Input styles */
 input[type='email'],
 input[type='password'] {
     width: 100%;
@@ -69,7 +61,6 @@ input[type='password'] {
     border-radius: 4px;
 }
 
-/* Register button */
 .register-btn {
     background-color: #4caf4fd2;
     color: white;
@@ -84,7 +75,6 @@ input[type='password'] {
     background-color: #45a049;
 }
 
-/* Hide image section on mobile devices */
 @media screen and (max-width: 767px) {
     .image-section {
         display: none;
