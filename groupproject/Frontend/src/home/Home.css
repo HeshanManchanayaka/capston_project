@@ -1,175 +1,83 @@
-.body{
- padding: 0px;
+/* Home.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
+
 .hero-section {
-  background-image: url('../assets/home/Background.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
+  background: url('your-background-image-url.jpg') no-repeat center center/cover;
+  height: 60vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  color: rgb(255, 252, 252);
-  box-sizing: border-box;
-}
-.hero-section h1{
-  font-size: 50px;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  position: relative;
 }
 
 .hero-text {
-  text-align: center;
-  font-size: 2rem;
- font-family: Monotype Corsiva;
- font-weight: bold;
-  color: rgba(13, 13, 13, 0.711);
   margin-bottom: 20px;
 }
 
 .join-button {
-  background-color: rgba(165, 247, 147, 0.8);
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  font-family:Monotype Corsiva;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
   border: none;
-  border-radius: 5rem;
+  border-radius: 5px;
   cursor: pointer;
+  animation: backgroundAnimation 3s infinite;
 }
 
 .join-button a {
-  text-decoration: none;
   color: white;
+  text-decoration: none;
 }
 
-/* Responsive styles for Hero Section */
-@media (max-width: 768px) {
-  .hero-text {
-    font-size: 1.5rem;
-  }
-
-  .join-button {
-    font-size: 1rem;
-    padding: 0.8rem 1.5rem;
-  }
+@keyframes backgroundAnimation {
+  0% { background-color: #007bff; }
+  50% { background-color: #0056b3; }
+  100% { background-color: #007bff; }
 }
 
-@media (max-width: 480px) {
-  .hero-text {
-    font-size: 1.2rem;
-  }
-
-  .join-button {
-    font-size: 0.9rem;
-    padding: 0.7rem 1.2rem;
-  }
-}
-
-/* Container Styles */
 .container1 {
   display: flex;
-  flex-direction: row;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
- 
+  padding: 20px;
 }
-.container1 .left-section img{
-  background-image: url(".././assets/home/");
-}
+
 .left-side, .right-side {
   flex: 1;
   padding: 20px;
 }
 
 .responsive-image {
-  max-width: 100%;
+  width: 100%;
   height: auto;
+  border-radius: 10px;
 }
-
-/* Responsive styles for Container */
-@media (max-width: 768px) {
-  .container1 {
-    flex-direction: column;
-  }
-}
-
-/* Side-by-Side Section Styles (Image and Responsive) */
 
 .side-by-side {
-  /* Background for desktop and larger screens */
-  background-image: url('../assets/home/back.jpg');
-  background-size: cover;
-  background-position: center;
-  /* Improved min-height for better image display */
-  min-height: calc(90vh - 30px);  /* Adjust padding value if needed */
-
-  /* Flexbox layout for both image and responsive views */
-  display: flex;
-  flex-direction: row;
-  justify-content: center; /* Center content horizontally */
-  color: rgb(14, 13, 13);
-  box-sizing: border-box;
-  margin: 2px 10px;
-}
-.side-by-side h2{
-  margin-bottom: 10px;
-  text-align: flex;
-  font-weight: bold;
-  font-family: 'Times New Roman', Times, serif;
-}
-
-/* Responsive Styles (Override for smaller screens) */
-@media (max-width: 768px) {
-  .side-by-side {
-    flex-direction: column;
-    align-items: center; /* Center content vertically */
-  }
-
-  .side-section {
-
-    height:auto;
-    margin-right: 0;
-    margin-bottom: 20px;
-    max-width: 90%; /* Limit width on smaller screens */
-  }
-
-  /* Remove extra bottom margin for last child on smaller screens */
-  /* .side-section:nth-last-child(1) {
-    margin-bottom: 0;
-  } */
-}
-
-/* Side Section Styles */
-.side-section {
-  margin-top: 50px;
-  flex: 1;
-  padding: 20px;  /* Reduced padding for smaller squares */
-  box-sizing: border-box;
-  max-width: 300px; /* Restrict maximum width */
-  max-height: 500px;
-  min-width: 200px; /* Set a minimum width */
-}
-
-.side-section a {
-  color: inherit;
-  text-decoration: none;
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: bold;
-}
-
-/* Additional styles for clarity */
-.left-section {
-  background-color: rgba(127, 255, 212, 0.785);
-  background-size: cover;
-  background-position: center;
-}
-
-.right-section {
-  background-color: #f1c8c89f;
-}
-
-.side-by-side h2 {
+  padding: 20px;
   text-align: center;
 }
 
+.side-section {
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.side-section:hover {
+  background-color: #f8f9fa;
+}
+
+.left-section, .right-section {
+  display: inline-block;
+  width: 45%;
+  vertical-align: top;
+}

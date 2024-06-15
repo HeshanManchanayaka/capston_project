@@ -40,7 +40,7 @@ function Login() {
 
         // Navigate based on user type
         if (userType === 'admin') {
-          navigate('/LandingPage');
+          navigate('/admin/landingpage');
         } else if (userType === 'instructor') {
           navigate('/instructor/instructor');
         } else {

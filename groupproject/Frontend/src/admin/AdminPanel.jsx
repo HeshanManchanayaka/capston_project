@@ -1,57 +1,132 @@
-import  { useState, useEffect } from 'react';
+// src/admin/AdminPanel.jsx
+import  { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table, Button, Modal, Form } from 'react-bootstrap';
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [editUser, setEditUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [editingUser, setEditingUser] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    name: '',
+    email: '',
+    date_of_birth: '',
+    userType: ''
+  });
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/profile/all');
+        setUsers(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError('Error fetching users');
+        setLoading(false);
+      }
+    };
+
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
-    try {
-      const response = await axios.get('/api/admin/users');
-      setUsers(response.data);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    }
-  };
-
   const handleDelete = async (email) => {
     try {
-      await axios.delete(`/api/admin/users/${email}`);
-      fetchUsers();
+      await axios.delete(`http://localhost:5000/api/profile/${email}`);
+      setUsers(users.filter(user => user.email !== email));
     } catch (error) {
       console.error('Error deleting user:', error);
     }
   };
 
   const handleEdit = (user) => {
-    setEditUser(user);
-    setShowEditModal(true);
+    setEditingUser(user);
+    setEditFormData({
+      name: user.name,
+      email: user.email,
+      date_of_birth: user.date_of_birth,
+      userType: user.userType
+    });
   };
 
-  const handleSave = async () => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData({
+      ...editFormData,
+      [name]: value
+    });
+  };
+
+  const handleEditFormSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await axios.put(`/api/admin/users/${editUser.email}`, editUser);
-      setShowEditModal(false);
-      fetchUsers();
+      await axios.put(`http://localhost:5000/api/profile/${editingUser.email}`, editFormData);
+      setUsers(users.map(user => (user.email === editingUser.email ? editFormData : user)));
+      setEditingUser(null);
+      setEditFormData({
+        name: '',
+        email: '',
+        date_of_birth: '',
+        userType: ''
+      });
     } catch (error) {
       console.error('Error updating user:', error);
     }
   };
 
-  const handleChange = (e) => {
-    setEditUser({ ...editUser, [e.target.name]: e.target.value });
-  };
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
-    <div className="container mt-5">
-      <h2>Admin Panel</h2>
-      <Table striped bordered hover>
+    <div>
+      <h1>Admin Panel</h1>
+      {editingUser && (
+        <form onSubmit={handleEditFormSubmit}>
+          <h2>Edit User</h2>
+          <label>
+            Name:
+            <input
+              type="text"
+              name="name"
+              value={editFormData.name}
+              onChange={handleInputChange}
+            />
+          </label>
+          <label>
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={editFormData.email}
+              onChange={handleInputChange}
+              disabled
+            />
+          </label>
+          <label>
+            Date of Birth:
+            <input
+              type="date"
+              name="date_of_birth"
+              value={editFormData.date_of_birth}
+              onChange={handleInputChange}
+            />
+          </label>
+          <label>
+            User Type:
+            <select
+              name="userType"
+              value={editFormData.userType}
+              onChange={handleInputChange}
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+              <option value="instructor">Instructor</option>
+            </select>
+          </label>
+          <button type="submit">Save</button>
+          <button type="button" onClick={() => setEditingUser(null)}>Cancel</button>
+        </form>
+      )}
+      <table>
         <thead>
           <tr>
             <th>Name</th>
@@ -62,72 +137,20 @@ const AdminPanel = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users.map(user => (
             <tr key={user.email}>
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>{user.date_of_birth}</td>
               <td>{user.userType}</td>
               <td>
-                <Button variant="primary" onClick={() => handleEdit(user)}>Edit</Button>
-                {' '}
-                <Button variant="danger" onClick={() => handleDelete(user.email)}>Delete</Button>
+                <button onClick={() => handleEdit(user)}>Edit</button>
+                <button onClick={() => handleDelete(user.email)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>
-
-      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit User</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                value={editUser?.name || ''}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                value={editUser?.email || ''}
-                onChange={handleChange}
-                disabled
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Date of Birth</Form.Label>
-              <Form.Control
-                type="date"
-                name="date_of_birth"
-                value={editUser?.date_of_birth || ''}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>User Type</Form.Label>
-              <Form.Control
-                type="text"
-                name="userType"
-                value={editUser?.userType || ''}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>Close</Button>
-          <Button variant="primary" onClick={handleSave}>Save changes</Button>
-        </Modal.Footer>
-      </Modal>
+      </table>
     </div>
   );
 };

@@ -30,8 +30,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/landingpage' element={<LandingPage />} />
-          <Route path='/AdminPanel' element={<AdminPanel />} />
+          <Route path='/admin/landingpage' element={<LandingPage />} />
+          <Route path="/admin/AdminPanel" element={<AdminPanel />} />
           <Route path="/Profile" element={<Profile/>} /> 
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
