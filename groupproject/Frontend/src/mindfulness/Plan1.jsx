@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
-
+import { Modal, Button } from 'react-bootstrap';
 
 const ZenFitLife = () => {
   const [viewedDays, setViewedDays] = useState(Array(7).fill(false));
@@ -43,10 +43,20 @@ const ZenFitLife = () => {
     newViewedDays[index] = true;
     setViewedDays(newViewedDays);
     setLoading(true);
+    console.log(day);
     try {
-      const response = await fetch(`/api/video/${day}`);
+      const response = await fetch(`http://localhost:5000/api/videos`);
       const data = await response.json();
-      setVideoUrl(data.video_url);
+
+      // Find the video for the specific day
+      const video = data.find(video => video.day === day);
+      console.log(video);
+      if (video) {
+        setVideoUrl(video.url);
+      } else {
+        console.error('No video found for the specified day');
+      }
+
       setShowModal(true);
     } catch (error) {
       console.error('Error fetching video:', error);
@@ -214,54 +224,39 @@ const ZenFitLife = () => {
             color: '#54e262',
             textDecoration: 'none'
           }}>+94777492727</a>
-          <a href="#" className="btn btn-primary" style={{
-            backgroundColor: '#a6e3a1',
-            border: 'none',
-            color: 'black'
-          }}>Join Now</a>
+          <a href="mailto:info@zenfitlife.com" style={{
+            color: '#54e262',
+            textDecoration: 'none'
+          }}>info@zenfitlife.com</a>
         </div>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '10px',
-          marginBottom: '10px'
-        }}>
-          {['About', 'Schedules', 'Membership', 'Teacher Training', 'Store', 'Resources', 'Contacts'].map((link, index) => (
-            <a key={index} href="#" style={{
-              color: '#54e262',
-              textDecoration: 'none'
-            }}>{link}</a>
-          ))}
+        <div>
+          <a href="#" style={{ marginRight: '10px', color: '#54e262', textDecoration: 'none' }}>Privacy Policy</a>
+          <a href="#" style={{ color: '#54e262', textDecoration: 'none' }}>Terms of Service</a>
         </div>
-        <p style={{ color: '#54e262', marginBottom: '0' }}>Privacy Policy</p>
       </footer>
 
-      {/* Modal */}
-      <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Yoga Video</h5>
-              <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseModal}></button>
-            </div>
-            <div className="modal-body">
-              {loading ? (
-                <div>Loading...</div>
-              ) : (
-                videoUrl && (
-                  <video width="100%" controls>
-                    <source src={videoUrl} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                )
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Upload Section */}
-      
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Yoga Video</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            videoUrl && (
+              <video width="100%" controls autoPlay>
+                <source src={videoUrl} type="video/mp4" />
+                Your browser does not support the video tag. 
+              </video>
+            )
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

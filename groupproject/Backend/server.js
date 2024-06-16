@@ -243,6 +243,7 @@ app.get('/api/videos', (req, res) => {
       ...video,
       url: `http://localhost:5000/uploads/${path.basename(video.url)}`
     }));
+    console.log(updatedResults);
     res.json(updatedResults);
   });
 });
