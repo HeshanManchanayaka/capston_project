@@ -13,6 +13,11 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: Arial, sans-serif;
+    background-image: url('../src/assets/musicbc.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
   }
   button:focus {
     outline: none;
@@ -40,7 +45,7 @@ const Title = styled.h1`
 `;
 
 const Card = styled.div`
-  background-color: #98FB98;
+  background-color: rgba(152, 251, 152, 0.5); // Adjusted for transparency
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -77,7 +82,7 @@ const AudioButton = styled.button`
   border: 2px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: rgba(226, 223, 210,0.7);
+  background-color: rgba(226, 223, 210, 0.7);
   cursor: pointer;
   transition: transform 0.2s, background-color 0.2s;
 

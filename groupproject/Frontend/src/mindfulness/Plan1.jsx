@@ -5,11 +5,59 @@ import 'aos/dist/aos.css';
 
 const ZenFitLife = () => {
   const [viewedDays, setViewedDays] = useState(Array(7).fill(false));
+  const [videoUrl, setVideoUrl] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [videoFile, setVideoFile] = useState(null);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [day, setDay] = useState('');
 
-  const handleButtonClick = (index) => {
+  const handleFileChange = (event) => {
+    setVideoFile(event.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    if (!videoFile || !title || !description || !day) return;
+
+    const formData = new FormData();
+    formData.append('video', videoFile);
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('day', day);
+
+    try {
+      const response = await fetch('/api/video', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+      alert(data.message);
+    } catch (error) {
+      console.error('Error uploading video:', error);
+    }
+  };
+
+  const handleButtonClick = async (index, day) => {
     const newViewedDays = [...viewedDays];
     newViewedDays[index] = true;
     setViewedDays(newViewedDays);
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/video/${day}`);
+      const data = await response.json();
+      setVideoUrl(data.video_url);
+      setShowModal(true);
+    } catch (error) {
+      console.error('Error fetching video:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setVideoUrl('');
   };
 
   return (
@@ -77,7 +125,7 @@ const ZenFitLife = () => {
             {['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'].map((day, index) => (
               <button
                 key={index}
-                onClick={() => handleButtonClick(index)}
+                onClick={() => handleButtonClick(index, day)}
                 style={{
                   backgroundColor: viewedDays[index] ? '#94c890' : '#84ea97',
                   border: '1px solid #070e06',
@@ -94,6 +142,7 @@ const ZenFitLife = () => {
               </button>
             ))}
           </div>
+
           <button style={{
             marginTop: '20px',
             backgroundColor: '#4CAF50',
@@ -186,6 +235,33 @@ const ZenFitLife = () => {
         </div>
         <p style={{ color: '#54e262', marginBottom: '0' }}>Privacy Policy</p>
       </footer>
+
+      {/* Modal */}
+      <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Yoga Video</h5>
+              <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseModal}></button>
+            </div>
+            <div className="modal-body">
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                videoUrl && (
+                  <video width="100%" controls>
+                    <source src={videoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Upload Section */}
+      
     </div>
   );
 };

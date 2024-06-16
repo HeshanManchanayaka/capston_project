@@ -101,6 +101,8 @@ const VideoManagement = () => {
     formData.append('description', data.description);
     formData.append('author', data.author);
 
+    console.log('FormData entries:', [...formData.entries()]);
+
     try {
       const response = await fetch('http://localhost:5000/upload-video', {
         method: 'POST',
@@ -108,15 +110,15 @@ const VideoManagement = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const errorText = await response.text();
+        throw new Error(`Network response was not ok: ${errorText}`);
       }
 
-      const result = await response.text();
       setSuccessMessage('Video uploaded successfully.');
       setErrorMessage('');
       reset();
     } catch (error) {
-      setErrorMessage('Failed to upload video.');
+      setErrorMessage(`Failed to upload video: ${error.message}`);
       setSuccessMessage('');
     }
   };
@@ -132,22 +134,22 @@ const VideoManagement = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const errorText = await response.text();
+        throw new Error(`Network response was not ok: ${errorText}`);
       }
 
-      const result = await response.text();
       setDeleteSuccessMessage('Video deleted successfully.');
       setDeleteErrorMessage('');
       resetDelete();
     } catch (error) {
-      setDeleteErrorMessage('Failed to delete video.');
+      setDeleteErrorMessage(`Failed to delete video: ${error.message}`);
       setDeleteSuccessMessage('');
     }
   };
 
   const validateFileType = (file) => {
     const validTypes = ['video/mp4', 'video/webm', 'video/ogg'];
-    return validTypes.includes(file.type) || 'Please select a valid video file.';
+    return file && validTypes.includes(file[0].type) ? true : 'Please select a valid video file.';
   };
 
   const validateText = (value) => {

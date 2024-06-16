@@ -123,6 +123,8 @@ const AudioManagement = () => {
   const [dayNumber, setDayNumber] = useState('');
   const [audioName, setAudioName] = useState('');
   const [description, setDescription] = useState('');
+  const [deleteAudioName, setDeleteAudioName] = useState('');
+  const [deleteDayNumber, setDeleteDayNumber] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -159,6 +161,16 @@ const AudioManagement = () => {
       setErrorMessage('');
     } else {
       setErrorMessage('Description can only contain letters.');
+    }
+  };
+
+  const handleDeleteNameChange = (e) => {
+    const { value } = e.target;
+    if (validateText(value)) {
+      setDeleteAudioName(value);
+      setErrorMessage('');
+    } else {
+      setErrorMessage('Name can only contain letters.');
     }
   };
 
@@ -200,8 +212,8 @@ const AudioManagement = () => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    if (!dayNumber) {
-      setErrorMessage('Day number is required.');
+    if (!deleteAudioName || !deleteDayNumber) {
+      setErrorMessage('All fields are required for deletion.');
       setSuccessMessage('');
       return;
     }
@@ -217,14 +229,15 @@ const AudioManagement = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ dayNumber }),
+        body: JSON.stringify({ dayNumber: deleteDayNumber, audioName: deleteAudioName }),
       });
 
       const result = await response.text();
       console.log(result);
       setErrorMessage('');
       setSuccessMessage('Audio file deleted successfully.');
-      setDayNumber('');
+      setDeleteAudioName('');
+      setDeleteDayNumber('');
     } catch (error) {
       console.error('Error:', error);
       setErrorMessage('Failed to delete audio file.');
@@ -262,7 +275,28 @@ const AudioManagement = () => {
           {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
 
           <Button type="submit">Update Database</Button>
-          <Button type="button" onClick={handleDelete} style={{ backgroundColor: 'red' }}>
+        </Form>
+
+        <Form onSubmit={handleDelete}>
+          <Label htmlFor="deleteAudioName">Audio Name to Delete:</Label>
+          <Input type="text" id="deleteAudioName" value={deleteAudioName} onChange={handleDeleteNameChange} />
+
+          <Label htmlFor="deleteDayNumber">Select Day Number to Delete:</Label>
+          <Select id="deleteDayNumber" value={deleteDayNumber} onChange={(e) => setDeleteDayNumber(e.target.value)}>
+            <option value="">Select Theme</option>
+            <option value="Calm Mind">Calm Mind</option>
+            <option value="Inside You">Inside You</option>
+            <option value="Beauty of Mind">Beauty of Mind</option>
+            <option value="Nature">Nature</option>
+            <option value="Vibe of Night">Vibe of Night</option>
+            <option value="Relax Your Mind">Relax Your Mind</option>
+            <option value="Find You">Find You</option>
+          </Select>
+
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+          {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
+
+          <Button type="submit" style={{ backgroundColor: 'red' }}>
             Delete Audio
           </Button>
         </Form>
@@ -286,7 +320,6 @@ const App = () => {
 
         <Card data-aos="fade-up">
           <center> Update Or Delete Audios</center>
-          {/* Removed the AudioGrid and AudioButton components */}
         </Card>
         <AudioManagement />
       </Container>
