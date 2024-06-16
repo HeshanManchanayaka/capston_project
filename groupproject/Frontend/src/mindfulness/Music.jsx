@@ -1,21 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import ReactAudioPlayer from 'react-audio-player';
 
+// Global styles
 const GlobalStyle = createGlobalStyle`
-  body {
-    font-family: Arial, sans-serif;
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-
+  body {
+    font-family: Arial, sans-serif;
+  }
   button:focus {
     outline: none;
   }
 `;
 
+// Styled components
 const Container = styled.div`
   padding: 20px;
   display: flex;
@@ -31,18 +35,18 @@ const Section = styled.section`
 const Title = styled.h1`
   font-size: 2.5em;
   margin-bottom: 20px;
-  font-family: 'Georgia', serif; /* Change font */
-  text-decoration: underline; /* Underline text */
+  font-family: 'Georgia', serif;
+  text-decoration: underline;
 `;
 
 const Card = styled.div`
-  background-color: #acf7ba;
+  background-color: #98FB98;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  max-width: device-size;
   width: 100%;
+  max-width: 800px;
   margin-bottom: 20px;
   transition: transform 0.2s, box-shadow 0.2s;
 
@@ -52,21 +56,28 @@ const Card = styled.div`
   }
 `;
 
+const InstructionText = styled.p`
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+`;
+
 const AudioGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 3fr));
-  gap: 100px;
-  padding:50px;
- 
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
 `;
 
 const AudioButton = styled.button`
-  padding: 10px; /* Increase padding */
-  font-size: 1em; /* Increase font size */
-  height:80px;
-  background-color: #84ea97;
-  border: 3px solid;
-  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  font-size: 1em;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgba(226, 223, 210,0.7);
   cursor: pointer;
   transition: transform 0.2s, background-color 0.2s;
 
@@ -83,8 +94,6 @@ const AudioButton = styled.button`
 const BenefitsSection = styled.section`
   display: flex;
   flex-direction: column;
-  margin-left:10px;
-  margin-top:50px;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -113,7 +122,7 @@ const BenefitsColumn = styled.div`
     padding-left: 30px;
 
     li {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       font-size: 1.1em;
     }
   }
@@ -124,21 +133,44 @@ const ImageColumn = styled.div`
   text-align: center;
 
   img {
-    max-width: 90%;
-    height: 400px;;
+    max-width: 100%;
+    height: auto;
     border-radius: 10px;
   }
 `;
 
+const AudioDetails = styled.div`
+  margin-top: 10px;
+  font-size: 0.9em;
+`;
+
 const App = () => {
+  const [audios, setAudios] = useState([]);
+  const [currentAudio, setCurrentAudio] = useState(null);
+  const [currentAudioDetails, setCurrentAudioDetails] = useState(null);
+
   useEffect(() => {
     AOS.init();
+
+    const fetchAudios = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/audios');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        setAudios(data);
+      } catch (error) {
+        console.error('Error fetching audio data:', error);
+      }
+    };
+
+    fetchAudios();
   }, []);
 
-  const handleAudioClick = (e) => {
-    const buttons = document.querySelectorAll('.audio-button');
-    buttons.forEach(button => button.classList.remove('active'));
-    e.target.classList.add('active');
+  const handleAudioClick = (audio) => {
+    setCurrentAudio(audio.url);
+    setCurrentAudioDetails(audio);
   };
 
   return (
@@ -150,22 +182,37 @@ const App = () => {
         </Section>
 
         <Card data-aos="fade-up">
+          <InstructionText>Click and listen to your music</InstructionText>
           <AudioGrid>
-            {[...Array(12)].map((_, i) => (
-              <AudioButton 
-                key={i} 
-                className="audio-button" 
-                onClick={handleAudioClick} 
+            {audios.map((audio, i) => (
+              <AudioButton
+                key={i}
+                className={currentAudioDetails && currentAudioDetails.day === audio.day ? 'active' : ''}
+                onClick={() => handleAudioClick(audio)}
                 data-aos="zoom-in"
                 onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
                 onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
               >
-                Audio {i + 1}
-                
+                {audio.day}
+                {currentAudioDetails && currentAudioDetails.day === audio.day && (
+                  <AudioDetails>
+                    <div><strong>Name:</strong> {audio.name}</div>
+                    <div><strong>Description:</strong> {audio.description}</div>
+                  </AudioDetails>
+                )}
               </AudioButton>
             ))}
           </AudioGrid>
         </Card>
+
+        {currentAudio && (
+          <ReactAudioPlayer
+            src={currentAudio}
+            autoPlay
+            controls
+            style={{ width: '100%', maxWidth: '800px', margin: '20px 0' }}
+          />
+        )}
 
         <Card data-aos="fade-up">
           <BenefitsSection>

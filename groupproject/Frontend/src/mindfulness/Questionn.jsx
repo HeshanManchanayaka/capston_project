@@ -1,9 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AOS from 'aos';              
 import 'aos/dist/aos.css';
 import styled from 'styled-components';
+import ZenFitLife from './Plan';
+import { useNavigate } from 'react-router-dom';
 
 const MentalHealth = () => {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formError, setFormError] = useState(false);
+  const nav = useNavigate()
+
   useEffect(() => {
     AOS.init({
       duration: 1200,
@@ -12,6 +18,26 @@ const MentalHealth = () => {
     });
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    nav('/plan')
+
+    const form = e.target;
+    const formData = new FormData(form);
+    if (
+      formData.get('q1') &&
+      formData.get('q2') &&
+      formData.get('q3') &&
+      formData.get('q4')
+    ) {
+      setFormSubmitted(true);
+      setFormError(false);
+
+    } else {
+      setFormError(true);
+    }
+  };
+
   return (
     <Container>
       <Title>Mindfulness</Title>
@@ -19,49 +45,55 @@ const MentalHealth = () => {
         <Content data-aos="fade-up">
           <p><b>Answer the simple Questions...</b></p>
           <QuestionsSection>
-            <form>
+            <form onSubmit={handleSubmit}>
               <Question data-aos="fade-right">
                 <label htmlFor="q1">Question 1: Do You Like Freedom?</label>
                 <Buttons>
-                  <input type="radio" id="q1-yes" name="q1" value="yes" />
+                  <input type="radio" id="q1-yes" name="q1" value="yes" required />
                   <label htmlFor="q1-yes">Yes</label>
-                  <input type="radio" id="q1-no" name="q1" value="no" />
+                  <input type="radio" id="q1-no" name="q1" value="no" required />
                   <label htmlFor="q1-no">No</label>
                 </Buttons>
-              </Question>
-              <Question data-aos="fade-left">
-                <label htmlFor="q2">Question 2: Do You Need a Listener for Your Life?</label>
-                <Buttons>
-                  <input type="radio" id="q2-yes" name="q2" value="yes" />
-                  <label htmlFor="q2-yes">Yes</label>
-                  <input type="radio" id="q2-no" name="q2" value="no" />
-                  <label htmlFor="q2-no">No</label>
-                </Buttons>
+                
               </Question>
               <Question data-aos="fade-right">
-                <label htmlFor="q3">Question 3: Do You Feel Alone with Yourself?</label>
+                <label htmlFor="q2">Question 1: Do You Like Freedom?</label>
                 <Buttons>
-                  <input type="radio" id="q3-yes" name="q3" value="yes" />
+                  <input type="radio" id="q2-yes" name="q2" value="yes" required />
+                  <label htmlFor="q2-yes">Yes</label>
+                  <input type="radio" id="q2-no" name="q2" value="no" required />
+                  <label htmlFor="q2-no">No</label>
+                </Buttons>
+                
+              </Question>
+              <Question data-aos="fade-right">
+                <label htmlFor="q3">Question 1: Do You Like Freedom?</label>
+                <Buttons>
+                  <input type="radio" id="q3-yes" name="q3" value="yes" required />
                   <label htmlFor="q3-yes">Yes</label>
-                  <input type="radio" id="q3-no" name="q3" value="no" />
+                  <input type="radio" id="q3-no" name="q3" value="no" required />
                   <label htmlFor="q3-no">No</label>
                 </Buttons>
+                
               </Question>
-              <Question data-aos="fade-left">
-                <label htmlFor="q4">Question 4: Do You Worry About Something?</label>
+              <Question data-aos="fade-right">
+                <label htmlFor="q4">Question 1: Do You Like Freedom?</label>
                 <Buttons>
-                  <input type="radio" id="q4-yes" name="q4" value="yes" />
+                  <input type="radio" id="q4-yes" name="q4" value="yes" required />
                   <label htmlFor="q4-yes">Yes</label>
-                  <input type="radio" id="q4-no" name="q4" value="no" />
+                  <input type="radio" id="q4-no" name="q4" value="no" required />
                   <label htmlFor="q4-no">No</label>
                 </Buttons>
               </Question>
-              <SubmitButton type="submit" data-aos="zoom-in">Submit</SubmitButton>
+              {/* Questions 2-4 code */}
+              
+              {formError && <ErrorMessage>Please answer all questions</ErrorMessage>}
+              <SubmitButton type="submit" data-aos="zoom-in" onClick={handleSubmit}> Submit</SubmitButton>
+              {formSubmitted && <p>Thank you for submitting!</p>}
             </form>
           </QuestionsSection>
         </Content>
       </MainSection>
-
       <BenefitsSection>
         <BenefitsHeader>
           <h2>Benefits of Mindfulness</h2>
@@ -110,7 +142,7 @@ const Container = styled.div`
 
 const Title = styled.h1`
   text-align: center;
-  font-family: 'Georgia, serif';
+  font-family: Georgia, serif;
   font-size: 32px;
   margin-bottom: 20px;
 `;
@@ -191,6 +223,11 @@ const SubmitButton = styled.button`
   &:hover {
     background-color: #72ab75c5;
   }
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+  margin-top: 10px;
 `;
 
 const BenefitsSection = styled.section`

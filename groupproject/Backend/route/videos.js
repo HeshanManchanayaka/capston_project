@@ -1,83 +1,122 @@
 const express = require('express');
-const mysql = require('mysql2/promise');
+const mysql = require('mysql');
+const multer = require('multer');
+const bodyParser = require('body-parser');
+const path = require('path');
+const fs = require('fs');
+const cors = require('cors');
 
 const app = express();
+const port = 5000;
 
-// Replace with your MySQL connection details
-const pool = mysql.createPool({
+// Enable CORS
+app.use(cors());
+
+// Ensure uploads directory exists
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
+// Database connection
+const db = mysql.createConnection({
   host: 'localhost',
-  user: 'your_username',
-  password: 'your_password',
-  database: 'your_database'
+  user: 'root',
+  password: '',
+  database: 'capstone_project'
 });
 
-// Route to fetch all video entries
-app.get('/api/videos', async (req, res) => {
-  try {
-    const connection = await pool.getConnection();
-    const sql = 'SELECT * FROM video_data';
-    const [rows] = await connection.query(sql);
-    await connection.release();
-    res.json(rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error fetching video data' });
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to MySQL database:', err);
+    process.exit(1);
+  }
+  console.log('Connected to MySQL database');
+});
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Set up Multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
   }
 });
 
-// Route to add a new video entry
-app.post('/api/videos', async (req, res) => {
-  const { dayId, videoUrl } = req.body; // Assuming you store a URL to the video
+const upload = multer({ storage });
 
-  try {
-    const connection = await pool.getConnection();
-    const sql = `INSERT INTO video_data (dayId, videoUrl) VALUES (?, ?)`;
-    const [result] = await connection.query(sql, [dayId, videoUrl]);
-    await connection.release();
-    res.json({ message: 'Video added successfully!', id: result.insertId });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error adding video' });
+// Endpoint to upload video file
+app.post('/upload-video', upload.single('videoFile'), (req, res) => {
+  const { videoName, day, description, author } = req.body;
+  const filename = req.file.filename;
+  const filePath = req.file.path;
+
+  if (!videoName || !day || !description || !author) {
+    return res.status(400).send('All fields are required');
   }
-});
 
-// Route to update an existing video entry
-app.put('/api/videos/:id', async (req, res) => {
-  const { id } = req.params;
-  const { dayId, videoUrl } = req.body; // Assuming you store a URL to the video
-
-  try {
-    const connection = await pool.getConnection();
-    const sql = `UPDATE video_data SET dayId = ?, videoUrl = ? WHERE id = ?`;
-    const [result] = await connection.query(sql, [dayId, videoUrl, id]);
-    await connection.release();
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ message: 'Video not found' });
+  const query = 'INSERT INTO video_management (video, name, day, description, author, file_path) VALUES (?, ?, ?, ?, ?, ?)';
+  db.query(query, [filename, videoName, day, description, author, filePath], (err, result) => {
+    if (err) {
+      console.error('Error saving data to database:', err);
+      return res.status(500).send('Internal server error');
     }
-    res.json({ message: 'Video updated successfully!' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error updating video' });
-  }
+    res.send('Video file uploaded and data saved to database');
+  });
 });
 
-// Route to delete a video entry
-app.delete('/api/videos/:id', async (req, res) => {
-  const { id } = req.params;
+// Endpoint to delete video file
+app.post('/delete-video', (req, res) => {
+  const { videoName, day } = req.body;
 
-  try {
-    const connection = await pool.getConnection();
-    const sql = `DELETE FROM video_data WHERE id = ?`;
-    const [result] = await connection.query(sql, [id]);
-    await connection.release();
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ message: 'Video not found' });
+  if (!videoName || !day) {
+    return res.status(400).send('Video name and day are required');
+  }
+
+  const fetchQuery = 'SELECT video FROM video_management WHERE name = ? AND day = ?';
+  db.query(fetchQuery, [videoName, day], (err, results) => {
+    if (err) {
+      console.error('Error fetching data from database:', err);
+      return res.status(500).send('Internal server error');
     }
-    res.json({ message: 'Video deleted successfully!' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error deleting video' });
-  }
+
+    if (results.length === 0) {
+      return res.status(404).send('Video file not found');
+    }
+
+    const filename = results[0].video;
+
+    const deleteQuery = 'DELETE FROM video_management WHERE name = ? AND day = ?';
+    db.query(deleteQuery, [videoName, day], (err, result) => {
+      if (err) {
+        console.error('Error deleting data from database:', err);
+        return res.status(500).send('Internal server error');
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).send('Video file not found');
+      }
+
+      const filePath = path.join(__dirname, 'uploads', filename);
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error('Failed to delete file:', err);
+          return res.status(500).send('Error deleting file from filesystem');
+        }
+
+        res.send('Video file deleted from database and filesystem');
+      });
+    });
+  });
 });
 
-app.listen(3000, () => console.log('Server listening on port 3000'));
+// Serve static video files from the "uploads" directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});

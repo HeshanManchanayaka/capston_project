@@ -1,89 +1,85 @@
-const express = require('express');
-const mysql = require('mysql2/promise');
+import express from 'express';
+import { createConnection } from 'mysql';
+import multer, { diskStorage } from 'multer';
+import { json, urlencoded } from 'body-parser';
+import { join, extname } from 'path';
+import { existsSync, mkdirSync, unlink } from 'fs';
 
 const app = express();
+const port = 5000;
 
-// Replace with your MySQL connection details
-const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'your_username',
-  password: 'your_password',
-  database: 'your_database'
-});
+// Ensure uploads directory exists
+const uploadDir = join(__dirname, 'uploads');
+if (!existsSync(uploadDir)) {
+  mkdirSync(uploadDir);
+}
 
-// Route to fetch all audio entries
-app.get('/api/audios', async (req, res) => {
-  try {
-    const connection = await pool.getConnection();
-    const sql = 'SELECT * FROM audio_data';
-    const [rows] = await connection.query(sql);
-    await connection.release();
-    res.json(rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error fetching audio data' });
+
+app.use(json());
+app.use(urlencoded({ extended: true }));
+
+// Set up Multer for file uploads
+const storage = diskStorage({
+  destination: (_req, _file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (_req, file, cb) => {
+    cb(null, Date.now() + extname(file.originalname)); // Save file with timestamp
   }
 });
 
-// Route to add a new audio entry
-app.post('/api/audios', async (req, res) => {
-  const { dayId } = req.body;
+const upload = multer({ storage });
 
-  // Assuming you have additional audio data fields (e.g., filename, data)
-  // const { dayId, filename, data } = req.body;
+// Endpoint to upload audio file
+app.post('/upload', upload.single('audioFile'), (req, res) => {
+  const { dayNumber } = req.body;
+  const filename = req.file.filename;
+  const filePath = req.file.path;
 
-  try {
-    const connection = await pool.getConnection();
-    const sql = `INSERT INTO audio_data (dayId) VALUES (?)`;
-    const [result] = await connection.query(sql, [dayId]);
-    await connection.release();
-    res.json({ message: 'Audio added successfully!', id: result.insertId });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error adding audio' });
+  if (!dayNumber) {
+    return res.status(400).send('Day number is required');
   }
+
+  const query = 'INSERT INTO audio_management (audio, day, file_Path) VALUES (?, ?, ?)';
+  db.query(query, [filename, dayNumber, filePath], (err, _result) => {
+    if (err) throw err;
+    res.send('Audio file uploaded and data saved to database');
+  });
 });
 
-// Route to update an existing audio entry
-app.put('/api/audios/:id', async (req, res) => {
-  const { id } = req.params;
-  const { dayId } = req.body;
+// Endpoint to delete audio file
+app.post('/delete', (req, res) => {
+  const { filename, dayNumber } = req.body;
 
-  // Assuming you have additional audio data fields to update
-  // const { dayId, filename, data } = req.body;
+  if (!filename || !dayNumber) {
+    return res.status(400).send('Filename and day number are required');
+  }
 
-  try {
-    const connection = await pool.getConnection();
-    const sql = `UPDATE audio_data SET dayId = ? WHERE id = ?`;
-    const [result] = await connection.query(sql, [dayId, id]);
-    await connection.release();
+  const query = 'DELETE FROM audio_management WHERE audio = ? AND day = ?';
+  db.query(query, [filename, dayNumber], (err, result) => {
+    if (err) throw err;
+
     if (result.affectedRows === 0) {
-      return res.status(404).json({ message: 'Audio not found' });
+      return res.status(404).send('Audio file not found');
     }
-    res.json({ message: 'Audio updated successfully!' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error updating audio' });
-  }
+
+    // Optionally, delete the file from the filesystem
+    const filePath = join(__dirname, 'uploads', filename);
+    unlink(filePath, (err) => {
+      if (err) console.error('Failed to delete file:', err);
+    });
+
+    res.send('Audio file deleted from database and filesystem');
+  });
 });
 
-// Route to delete an audio entry
-app.delete('/api/audios/:id', async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const connection = await pool.getConnection();
-    const sql = `DELETE FROM audio_data WHERE id = ?`;
-    const [result] = await connection.query(sql, [id]);
-    await connection.release();
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ message: 'Audio not found' });
-    }
-    res.json({ message: 'Audio deleted successfully!' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error deleting audio' });
-  }
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
-
-app.listen(3000, () => console.log('Server listening on port 3000'));
+app.get('/audios', (req, res) => {
+    const query = 'SELECT * FROM audio_management';
+    db.query(query, (err, results) => {
+        if (err) throw err;
+        res.json(results);
+    });
+});
