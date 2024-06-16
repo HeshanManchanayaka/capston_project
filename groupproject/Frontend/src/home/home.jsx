@@ -1,9 +1,11 @@
 import "./Home.css";
 import Footer from "../component/Footer";
+import Navbar from "../home/Navbar";
 
 function Home() {
   return (
     <div>
+      <Navbar/>
       <div className="hero-section">
         <div className="hero-text" data-aos="fade-down">
           <h1>Mindfulness &amp; Healthy life</h1>
@@ -17,7 +19,7 @@ function Home() {
       <div className="container1">
         <div className="left-side" data-aos="fade-up">
           <img
-            src="../assets/user/log1.png"
+            src="../assets/home/1242049_HealthyLifestyle_Option2_120721-1.jpg"
             alt="Example"
             className="responsive-image"
           />
@@ -39,7 +41,7 @@ function Home() {
           <p>Details about the left section.</p>
         </div>
         <div className="side-section right-section" data-aos="fade-down">
-        <h2><a href="">Mindfulness</a></h2>
+        <h2><a href="./options">Mindfulness</a></h2>
           <p>Details about the right section.</p>
         </div>
       </div>
