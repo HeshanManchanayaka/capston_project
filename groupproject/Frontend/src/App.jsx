@@ -1,46 +1,38 @@
-import Home from "./home/home.jsx";
-import Login from "./Login/login.jsx";
-import Register from "./Register/register.jsx"
-import Plan from "./mindfulness/Plan.jsx"
-import Options from "./mindfulness/Options.jsx"
-import Music from "./mindfulness/Music.jsx"
-import Meditation from "./mindfulness/Meditation.jsx"
-import Counceling from "./mindfulness/Counceling.jsx"
-import UserProfile from "./home/UserProfile.jsx"
+import './App.css'
+import About from './Pages/About'
+import AddDetails from './Pages/AddDetails'
+import ChangePassword from './Pages/ChangePassword'
+import Edit from './Pages/Edit'
+import EditProfile from './Pages/EditProfile'
+import Home from './Pages/Home'
+import InstMoreDetails from './Pages/InstMoreDetails'
+import Instructor01 from './Pages/Instructor01'
+import Instructor02 from './Pages/Instructor02'
+import Instructor03 from './Pages/Instructor03'
+import Instructor04 from './Pages/Instructor04'
+import InstructorHome from './Pages/InstructorHome'
+import ProfileDisplay from './Pages/ProfileDisplay'
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 function App() {
-  // Initialize AOS
-  AOS.init({
-    offset: 200,
-    duration: 600,
-    easing: 'ease-in-sine',
-    delay: 100,
-  });
+  
 
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/UserProfile' element={<UserProfile />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          {/* <Route path='/question' element={<Questionn />} /> */}
-          <Route path='/plan' element={<Plan />} />
-          <Route path='/options' element={<Options />} />
-          <Route path='/music' element={<Music />} />
-          <Route path='/meditation' element={<Meditation />} />
-          <Route path='/counceling' element={<Counceling />}/>
 
-
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
+    <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<AddDetails/>}/>
+      <Route path='/profiledisplay/:email' element={<ProfileDisplay/>}/>
+      <Route path='/editprofile/:email' element={<Edit/>}/>
+      <Route path='/instructorhome' element={<InstructorHome/>}/>
+      <Route path='/instuructor/:email' element={<Instructor01/>}/>
+      <Route path='/InstMoreDetails/:email' element={<InstMoreDetails/>}/>
+      <Route path='/changpw' element={<ChangePassword/>}/>
+    </Routes>
+    </BrowserRouter>
+   
+  )
 }
 
-export default App;
+export default App
