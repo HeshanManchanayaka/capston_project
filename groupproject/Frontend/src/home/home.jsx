@@ -12,7 +12,7 @@ function Home() {
           <p>Connect to your inner flow..</p>
         </div>
         <button className="join-button" data-aos="fade-up">
-          <a href="./UserProfile">Join Our Classes</a>
+          <a href="./EditProfile">Join Our Classes</a>
         </button>
       </div>
 

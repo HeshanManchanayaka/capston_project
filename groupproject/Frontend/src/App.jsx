@@ -35,7 +35,7 @@ function App() {
           <Route path='/music' element={<Music />} />
           <Route path='/meditation' element={<Meditation />} />
           <Route path='/counceling' element={<Counceling />}/>
-
+          <Route path='/EditProfile' element={<EditProfile />}/>
 
         </Routes>
       </BrowserRouter>
